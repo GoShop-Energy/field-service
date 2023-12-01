@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="worksheet_custom_page_service" inherit_id="industry_fsm_report.worksheet_custom_page">
+        <xpath expr="//h2" position="replace">
+            <h2 t-if="doc.allow_billable and doc.sale_order_id">
+                <span>Time&amp; Material</span>
+                (Task ID: #<span t-field="doc.id"/>) 
+            </h2>
+        </xpath>
+    </template>
+</odoo>
