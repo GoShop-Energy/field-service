@@ -77,7 +77,6 @@ class ProjectTask(models.Model):
             if not existing_tag:
                 new_tag = self.env["project.tags"].create(
                     {
-                        "warehouse_id": self.warehouse_id.id,
                         "name": self.warehouse_id.name,
                     }
                 )
@@ -86,6 +85,7 @@ class ProjectTask(models.Model):
                 default_tag_ids.append((4, existing_tag.id))
 
         return default_tag_ids
+
 
     @api.depends("sale_order_id.instruction")
     def _compute_description(self):

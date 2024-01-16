@@ -11,7 +11,17 @@
     "category": "Customizations",
     "version": "0.1.8.7",
     "license": "LGPL-3",
-    "depends": ["base", "sale", "sale_management", "project", "product", "delivery"],
+    "depends": ["base", 
+                "delivery",
+                "industry_fsm",
+                "industry_fsm_report",
+                "project", 
+                "product", 
+                "sale",
+                "sale_project",
+                "sale_management",
+                "stock"
+                ],
     "data": [
         "views/res_partner_views.xml",
         "views/sale_order_views.xml",
