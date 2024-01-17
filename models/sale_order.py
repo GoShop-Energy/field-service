@@ -49,4 +49,3 @@ class SaleOrder(models.Model):
             field_service_children = order.partner_id.child_ids.filtered(lambda child: child.type == "field_service")
             # Assign the first child if available, otherwise assign the partner itself
             order.child_id = field_service_children[:1] or order.partner_id
-
