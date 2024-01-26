@@ -23,7 +23,7 @@ class TestResPartnerFieldService(TransactionCase):
         self.assertEqual(action["type"], "ir.actions.act_window")
         self.assertEqual(action["res_model"], "res.partner")
         self.assertIn(("type", "=", "field_service"), action["domain"])
-        self.assertIn(("id", "in", self.partner.child_ids.ids), action["domain"])
+        self.assertIn(("id", "in", self.partner.partner_service_id.ids), action["domain"])
         self.assertEqual(
             action["context"],
             {

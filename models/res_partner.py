@@ -38,7 +38,7 @@ class ResPartner(models.Model):
             "res_model": "res.partner",
             "domain": [
                 ("type", "=", "field_service"),
-                ("id", "in", self.child_ids.ids),
+                ("id", "in", self.field_service_type.ids),
             ],
             "context": {
                 "create": False,
@@ -50,5 +50,5 @@ class ResPartner(models.Model):
     def compute_count(self):
         for record in self:
             record.service_field_count = self.env["res.partner"].search_count(
-                [("type", "=", "field_service"), ("id", "in", self.child_ids.ids)]
+                [("type", "=", "field_service"), ("id", "in", self.field_service_type.ids)]
             )

@@ -41,7 +41,7 @@ class TestSaleOrder(TransactionCase):
         self.sale_order._compute_has_service()
         self.assertTrue(self.sale_order.has_service)
 
-    def test_compute_child_id(self):
+    def test_compute_partner_service_id(self):
         field_service_child = self.env["res.partner"].create(
             {
                 "name": "Field Service Child",
@@ -50,8 +50,8 @@ class TestSaleOrder(TransactionCase):
             }
         )
 
-        self.sale_order._compute_child_id()
-        self.assertEqual(self.sale_order.child_id, field_service_child)
+        self.sale_order._compute_partner_service_id()
+        self.assertEqual(self.sale_order.partner_service_id, field_service_child)
 
         field_service_child_2 = self.env["res.partner"].create(
             {
@@ -61,5 +61,5 @@ class TestSaleOrder(TransactionCase):
             }
         )
 
-        self.sale_order._compute_child_id()
-        self.assertEqual(self.sale_order.child_id, field_service_child)
+        self.sale_order._compute_partner_service_id()
+        self.assertEqual(self.sale_order.partner_service_id, field_service_child)

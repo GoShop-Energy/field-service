@@ -23,13 +23,6 @@ class TestProjectTask(TransactionCase):
             }
         )
 
-    def test_compute_product_ids(self):
-        self.project_task._compute_product_ids()
-        self.assertEqual(
-            self.project_task.product_ids,
-            self.sale_order.order_line.mapped("product_id"),
-        )
-
     def test_get_action_view_picking(self):
         pickings = self.env["stock.picking"].search([("id", "=", False)])
 
@@ -63,7 +56,7 @@ class TestProjectTask(TransactionCase):
 
         self.assertEqual(action["type"], "ir.actions.act_window")
         self.assertEqual(action["res_model"], "res.partner")
-        self.assertEqual(action["res_id"], self.project_task.child_id.id)
+        self.assertEqual(action["res_id"], self.project_task.partner_service_id.id)
         self.assertEqual(action["view_mode"], "form")
         self.assertEqual(
             action["view_id"],

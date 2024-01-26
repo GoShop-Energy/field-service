@@ -1,7 +1,10 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api
-
+from odoo import api, fields, models, _
+LOCKED_FIELD_STATES = {
+    state: [('readonly', True)]
+    for state in {'done', 'cancel'}
+}
 
 class SaleOrder(models.Model):
     _inherit = "sale.order"
@@ -27,12 +30,14 @@ class SaleOrder(models.Model):
     )
 
     parent_id = fields.Many2one("res.partner")
-    child_id = fields.Many2one(
-        "res.partner",
-        domain="[('parent_id', '=', partner_id), ('type', '=', 'field_service')]",
-        compute="_compute_child_id",
-        store=True,
-    )
+    partner_service_id = fields.Many2one(
+        comodel_name='res.partner',
+        string="Service Location",
+        compute='_compute_partner_service_id',
+        store=True, readonly=False, required=True, precompute=True,
+        states=LOCKED_FIELD_STATES,
+        domain="['|', ('company_id', '=', False), ('company_id', '=', company_id)]",)
+    
     terms_type = fields.Selection(related="company_id.terms_type")
 
     @api.depends("order_line.product_id")
@@ -44,11 +49,7 @@ class SaleOrder(models.Model):
                 for line in order.order_line
             )
 
-    @api.depends("partner_id")
-    def _compute_child_id(self):
+    @api.depends('partner_id')
+    def _compute_partner_service_id(self):
         for order in self:
-            field_service_children = order.partner_id.child_ids.filtered(
-                lambda child: child.type == "field_service"
-            )
-            # Assign the first child if available, otherwise assign the partner itself
-            order.child_id = field_service_children[:1] or order.partner_id
+            order.partner_service_id = order.partner_id.address_get(['field_service'])['field_service'] if order.partner_id else False

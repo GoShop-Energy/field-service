@@ -30,7 +30,7 @@ class ProjectTask(models.Model):
     delivery_count = fields.Integer(related="sale_order_id.delivery_count")
     picking_ids = fields.One2many(related="sale_order_id.picking_ids")
     partner_id = fields.Many2one(related="sale_order_id.partner_id")
-    child_id = fields.Many2one(related="sale_order_id.child_id", readonly=False)
+    partner_service_id = fields.Many2one(related="sale_order_id.partner_service_id", readonly=False)
 
     tag_ids = fields.Many2many("project.tags", string="Tags", readonly=False)
     company_id = fields.Many2one(comodel_name="res.company")
@@ -59,16 +59,16 @@ class ProjectTask(models.Model):
         return action
 
     def action_fs_navigate(self):
-        if not self.child_id.city or not self.child_id.country_id:
+        if not self.partner_service_id.city or not self.partner_service_id.country_id:
             return {
                 "name": _("Service Location"),
                 "type": "ir.actions.act_window",
                 "res_model": "res.partner",
-                "res_id": self.child_id.id,
+                "res_id": self.partner_service_id.id,
                 "view_mode": "form",
                 "view_id": self.env.ref(
                     "industry_fsm.view_partner_address_form_industry_fsm"
                 ).id,
                 "target": "new",
             }
-        return self.child_id.action_partner_navigate()
+        return self.partner_service_id.action_partner_navigate()

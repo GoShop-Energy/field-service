@@ -18,7 +18,7 @@
                 </xpath>
 
                 <xpath expr="//form//group//field[@name='partner_id']" position="after">
-                    <field name="child_id" 
+                    <field name="partner_service_id" 
                         string="Service Location" 
                         widget="res_partner_many2one"
                         class="o_task_customer_field"
