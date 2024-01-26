@@ -15,6 +15,7 @@
         "base",
         "delivery",
         "industry_fsm",
+        "industry_fsm_report",
         "product",
         "sale_project",
         "stock",

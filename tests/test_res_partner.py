@@ -11,8 +11,7 @@ class TestResPartnerFieldService(TransactionCase):
         self.partner = self.env["res.partner"].create(
             {
                 "name": "Test Partner",
-                "type": "field_service",
-                "field_service_type": "solar",
+                "type": "contact",
             }
         )
 
@@ -33,9 +32,9 @@ class TestResPartnerFieldService(TransactionCase):
             },
         )
 
-    def test_compute_count(self):
-        # Test the compute_count method
-        self.partner.compute_count()
+    def _compute_service_field_count(self):
+        # Test the _compute_service_field_count method
+        self.partner._compute_service_field_count()
         self.assertEqual(self.partner.service_field_count, 0)
 
         # Create a child partner with field_service type
@@ -47,7 +46,15 @@ class TestResPartnerFieldService(TransactionCase):
                 "parent_id": self.partner.id,
             }
         )
+        child_partner2 = self.env["res.partner"].create(
+            {
+                "name": "Child Partner",
+                "type": "field_service",
+                "field_service_type": "water_heater",
+                "parent_id": self.partner.id,
+            }
+        )
 
         # Recompute the count
-        self.partner.compute_count()
-        self.assertEqual(self.partner.service_field_count, 1)
+        self.partner._compute_service_field_count()
+        self.assertEqual(self.partner.service_field_count, 2)

@@ -15,13 +15,13 @@
                     <xpath expr="//notebook//form/sheet//group//group[2]//field[@name='mobile']" position="after">
                         <field name='field_service_type' attrs="{'invisible': [('type', '!=', 'field_service')]}" />
                         <field name="other_description" attrs="{'invisible': [('field_service_type', '!=', 'other')]}"/>
-                        <field name="equipement" attrs="{'invisible': [('type', '!=', 'field_service')]}"/>
+                        <field name="equipement_name" attrs="{'invisible': [('type', '!=', 'field_service')]}"/>
                     </xpath>
 
                     <xpath expr="//div[@class='o_address_format'][1]" position="after">
                         <field name='field_service_type' attrs="{'invisible': [('type', '!=', 'field_service')]}" />
                         <field name="other_description" attrs="{'invisible': [('field_service_type', '!=', 'other')]}"/>
-                        <field name="equipement" attrs="{'invisible': [('type', '!=', 'field_service')]}"/>
+                        <field name="equipement_name" attrs="{'invisible': [('type', '!=', 'field_service')]}"/>
                     </xpath>
                     
                     <xpath expr="//notebook//templates//div//div[@class='o_kanban_image']" position="replace">
