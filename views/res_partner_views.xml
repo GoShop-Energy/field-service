@@ -27,7 +27,7 @@
                     <xpath expr="//notebook//templates//div//div[@class='o_kanban_image']" position="replace">
                         <div class="o_kanban_image">
                             <img alt="Contact image" attrs="{'invisible': [('type', '=', 'field_service')]}" t-att-src="kanban_image('res.partner', 'avatar_128', record.id.raw_value)"/>
-                            <img alt="Location image" attrs="{'invisible': [('type', '!=', 'field_service')]}" t-att-src="'/gse_field_service/static/src/img/location.png'"/>
+                            <img alt="Location image" attrs="{'invisible': [('type', '!=', 'field_service')]}" t-att-src="'/field-service/static/src/img/location.png'"/>
                         </div>
                     </xpath>
 
