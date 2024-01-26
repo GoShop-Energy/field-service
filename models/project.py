@@ -12,15 +12,7 @@ class ProjectTask(models.Model):
         store=True,
         help="Sales order to which the task is linked.",
     )
-
-    order_line_table = fields.Html(
-        string="HTML Field",
-    )
-
-    product_ids = fields.Many2many(
-        "product.product", string="Products", compute="_compute_product_ids", store=True
-    )
-    warehouse_id = fields.Many2one(related="sale_order_id.warehouse_id")
+    order_line_table = fields.Html(string="Order Line Table")
     order_line = fields.One2many(
         comodel_name="sale.order.line",
         related="sale_order_id.order_line",
@@ -31,16 +23,6 @@ class ProjectTask(models.Model):
     picking_ids = fields.One2many(related="sale_order_id.picking_ids")
     partner_id = fields.Many2one(related="sale_order_id.partner_id")
     partner_service_id = fields.Many2one(related="sale_order_id.partner_service_id", readonly=False)
-
-    tag_ids = fields.Many2many("project.tags", string="Tags", readonly=False)
-    company_id = fields.Many2one(comodel_name="res.company")
-
-    has_default_tag = fields.Boolean(string="Default Tag Created", default=False)
-
-    @api.depends("sale_order_id")
-    def _compute_product_ids(self):
-        for task in self:
-            task.product_ids = task.sale_order_id.order_line.mapped("product_id")
 
     def action_view_delivery(self):
         return self._get_action_view_picking(self.picking_ids)

@@ -13,9 +13,6 @@
                 <xpath expr="//form//group//field[@name='project_id']" position="before">
                     <field name="id" string="Task id"/> 
                 </xpath>
-                <xpath expr="//form//group//field[@name='tag_ids']" position="after">
-                    <field name="warehouse_id" widget="record_info" string="Warehouse" invisible="1" />
-                </xpath>
 
                 <xpath expr="//form//group//field[@name='partner_id']" position="after">
                     <field name="partner_service_id" 
