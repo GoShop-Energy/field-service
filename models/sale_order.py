@@ -40,12 +40,11 @@ class SaleOrder(models.Model):
     
     terms_type = fields.Selection(related="company_id.terms_type")
 
-    @api.depends("order_line.product_id")
+    @api.depends("order_line.product_id.type", "order_line.product_id.service_tracking")
     def _compute_has_service(self):
         for order in self:
             order.has_service = any(
-                line.product_id.type == "service"
-                and line.product_id.service_tracking == "task_global_project"
+                line.product_id.type == "service" and line.product_id.service_tracking != "no"
                 for line in order.order_line
             )
 
