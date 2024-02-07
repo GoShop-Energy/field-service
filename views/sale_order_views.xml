@@ -12,13 +12,14 @@
                         <group>
                             <field 
                             name="instruction" 
-                            placeholder="Service Instruction notes..." 
+                            placeholder="Service Instruction notes..."
+                            attrs="{'required': [('has_service', '=', True), ('state', 'in', ['draft', 'sent'])]}"
                             nolabel="1" colspan="2"/>
                         </group>
                     </page>
                 </xpath>
                 <xpath expr="//group[@name='partner_details']/field[@name='partner_shipping_id']" position="after">
-                    <field name="child_id" string="Service Location" readonly="False"/>
+                    <field name="partner_service_id" string="Service Location" readonly="False"/>
                     <field name="parent_id" invisible="1" />
                     <field name="has_service" invisible="1" />
                     <field name="tasks_count" invisible="1" />

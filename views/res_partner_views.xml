@@ -15,19 +15,19 @@
                     <xpath expr="//notebook//form/sheet//group//group[2]//field[@name='mobile']" position="after">
                         <field name='field_service_type' attrs="{'invisible': [('type', '!=', 'field_service')]}" />
                         <field name="other_description" attrs="{'invisible': [('field_service_type', '!=', 'other')]}"/>
-                        <field name="equipement" attrs="{'invisible': [('type', '!=', 'field_service')]}"/>
+                        <field name="equipement_name" attrs="{'invisible': [('type', '!=', 'field_service')]}"/>
                     </xpath>
 
                     <xpath expr="//div[@class='o_address_format'][1]" position="after">
                         <field name='field_service_type' attrs="{'invisible': [('type', '!=', 'field_service')]}" />
                         <field name="other_description" attrs="{'invisible': [('field_service_type', '!=', 'other')]}"/>
-                        <field name="equipement" attrs="{'invisible': [('type', '!=', 'field_service')]}"/>
+                        <field name="equipement_name" attrs="{'invisible': [('type', '!=', 'field_service')]}"/>
                     </xpath>
                     
                     <xpath expr="//notebook//templates//div//div[@class='o_kanban_image']" position="replace">
                         <div class="o_kanban_image">
                             <img alt="Contact image" attrs="{'invisible': [('type', '=', 'field_service')]}" t-att-src="kanban_image('res.partner', 'avatar_128', record.id.raw_value)"/>
-                            <img alt="Location image" attrs="{'invisible': [('type', '!=', 'field_service')]}" t-att-src="'/gse_field_service/static/src/img/location.png'"/>
+                            <img alt="Location image" attrs="{'invisible': [('type', '!=', 'field_service')]}" t-att-src="'/field-service/static/src/img/location.png'"/>
                         </div>
                     </xpath>
 
